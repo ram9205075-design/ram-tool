@@ -25,16 +25,15 @@
             box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
         
-        .gradient-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
         .card {
             background: white;
             border-radius: 1rem;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.2);
         }
         
         .loading-spinner {
@@ -61,11 +60,154 @@
             border-radius: 9999px;
             font-size: 0.75rem;
             font-weight: 600;
+            text-transform: uppercase;
         }
         
         .status-pending { background: #fef3c7; color: #92400e; }
         .status-approved { background: #d1fae5; color: #065f46; }
         .status-rejected { background: #fee2e2; color: #991b1b; }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .admin-table th {
+            background: #f9fafb;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .admin-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .admin-table tr:hover {
+            background: #f9fafb;
+        }
+        
+        .copy-btn {
+            padding: 4px 8px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .action-btn.approve {
+            background: #10b981;
+            color: white;
+        }
+        
+        .action-btn.approve:hover {
+            background: #059669;
+        }
+        
+        .action-btn.reject {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .action-btn.reject:hover {
+            background: #dc2626;
+        }
+        
+        .action-btn.edit {
+            background: #8b5cf6;
+            color: white;
+        }
+        
+        .action-btn.edit:hover {
+            background: #7c3aed;
+        }
+        
+        .action-btn.view {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .action-btn.view:hover {
+            background: #2563eb;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .tab-btn.active {
+            color: #8b5cf6;
+            border-bottom-color: #8b5cf6;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .method-btn {
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .method-btn.active {
+            border-color: #8b5cf6;
+            background: #f5f3ff;
+            color: #8b5cf6;
+        }
+
+        .method-btn:hover {
+            border-color: #8b5cf6;
+        }
+
+        .user-logout-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ef4444;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .user-logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -78,18 +220,23 @@
                     Ram Earning Tools
                 </h1>
                 <div class="flex items-center gap-4">
-                    <button onclick="showSection('home')" class="text-gray-700 hover:text-indigo-600">Home</button>
-                    <button onclick="showSection('dashboard')" class="text-gray-700 hover:text-indigo-600">Dashboard</button>
-                    <button id="adminBtn" onclick="showSection('admin')" class="text-gray-700 hover:text-indigo-600">
+                    <button onclick="showSection('home')" class="text-gray-700 hover:text-indigo-600 px-3 py-2">Home</button>
+                    <button onclick="showSection('dashboard')" class="text-gray-700 hover:text-indigo-600 px-3 py-2">Dashboard</button>
+                    <button id="adminBtn" onclick="showSection('admin')" class="text-gray-700 hover:text-indigo-600 px-3 py-2">
                         <i class="fas fa-user-shield text-xl"></i>
                     </button>
-                    <button id="logoutBtn" onclick="logout()" class="hidden text-red-600 hover:text-red-700">
-                        <i class="fas fa-sign-out-alt text-xl"></i>
+                    <button id="logoutBtn" onclick="logout()" class="hidden text-red-600 hover:text-red-700 px-3 py-2">
+                        <i class="fas fa-sign-out-alt text-xl"></i> Logout
                     </button>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- User Logout Button (for dashboard) -->
+    <div id="userLogoutBtn" class="user-logout-btn hidden" onclick="userLogout()">
+        <i class="fas fa-sign-out-alt mr-2"></i>Logout from Dashboard
+    </div>
 
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -215,16 +362,24 @@
                                 <p class="text-sm text-gray-500">Referral Link</p>
                                 <div class="flex items-center gap-2">
                                     <p id="dashReferral" class="text-sm text-blue-600 truncate"></p>
-                                    <button onclick="copyDashLink()" class="text-purple-600">
+                                    <button onclick="copyDashLink()" class="copy-btn">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div id="monetagContainer" class="hidden bg-purple-50 p-3 rounded mb-4">
-                            <p class="text-sm text-purple-600 mb-1">Monetag Link:</p>
-                            <a id="monetagLink" href="#" target="_blank" class="text-blue-600 hover:underline"></a>
+                        
+                        <!-- Monetag Link Section - Only visible when approved -->
+                        <div id="monetagContainer" class="hidden bg-purple-50 p-4 rounded-lg mb-4">
+                            <p class="text-sm text-purple-600 mb-2">Your Earning Link:</p>
+                            <div class="flex items-center gap-2">
+                                <a id="monetagLink" href="#" target="_blank" class="text-blue-600 hover:underline flex-1 break-all"></a>
+                                <button onclick="copyMonetagLink()" class="copy-btn">
+                                    <i class="fas fa-copy mr-1"></i>Copy
+                                </button>
+                            </div>
                         </div>
+
                         <div class="grid grid-cols-2 gap-4">
                             <div class="bg-blue-50 p-4 rounded text-center">
                                 <p class="text-2xl font-bold text-blue-600" id="dashViews">0</p>
@@ -246,20 +401,51 @@
                             <p class="text-xs text-purple-500 mt-1" id="minAmount">Min: ₹50</p>
                         </div>
                         <div class="space-y-4">
-                            <input type="number" id="withdrawAmount" class="w-full px-4 py-2 border rounded-lg" placeholder="Amount">
-                            <div class="grid grid-cols-3 gap-2">
-                                <button onclick="setMethod('gpay')" id="methodGpay" class="py-2 border rounded-lg hover:border-purple-500">Google Pay</button>
-                                <button onclick="setMethod('phonepe')" id="methodPhonepe" class="py-2 border rounded-lg hover:border-purple-500">PhonePe</button>
-                                <button onclick="setMethod('upi')" id="methodUpi" class="py-2 border rounded-lg hover:border-purple-500">UPI</button>
+                            <input type="number" id="withdrawAmount" class="w-full px-4 py-2 border rounded-lg" placeholder="Enter Amount">
+                            
+                            <!-- Payment Methods -->
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Select Payment Method</label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <button onclick="setMethod('gpay')" id="methodGpay" class="method-btn">
+                                        <i class="fab fa-google-pay mr-2"></i>Google Pay
+                                    </button>
+                                    <button onclick="setMethod('phonepe')" id="methodPhonepe" class="method-btn">
+                                        <i class="fas fa-mobile-alt mr-2"></i>PhonePe
+                                    </button>
+                                    <button onclick="setMethod('upi')" id="methodUpi" class="method-btn active">
+                                        <i class="fas fa-university mr-2"></i>UPI
+                                    </button>
+                                </div>
                             </div>
-                            <input type="text" id="upiId" class="w-full px-4 py-2 border rounded-lg" placeholder="UPI ID (e.g., name@okhdfcbank)">
-                            <button onclick="submitWithdrawal()" id="withdrawBtn" class="gradient-btn text-white w-full py-2 rounded-lg font-semibold">
-                                Request Withdrawal
+
+                            <!-- UPI ID Input -->
+                            <div>
+                                <label class="block text-sm font-medium mb-2">UPI ID</label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="upiId" class="flex-1 px-4 py-2 border rounded-lg" placeholder="e.g., name@okhdfcbank">
+                                    <button onclick="validateUPI()" class="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Example: username@okhdfcbank, username@ybl, username@apl</p>
+                            </div>
+
+                            <!-- UPI QR Option (for Google Pay/PhonePe) -->
+                            <div id="qrOption" class="hidden bg-blue-50 p-3 rounded-lg">
+                                <p class="text-sm text-blue-600 mb-2">Quick Option:</p>
+                                <button onclick="showQRScanner()" class="text-blue-600 hover:text-blue-700">
+                                    <i class="fas fa-qrcode mr-2"></i>Scan QR Code
+                                </button>
+                            </div>
+
+                            <button onclick="submitWithdrawal()" id="withdrawBtn" class="gradient-btn text-white w-full py-3 rounded-lg font-semibold">
+                                <i class="fas fa-money-bill-wave mr-2"></i>Request Withdrawal
                             </button>
                         </div>
                     </div>
 
-                    <!-- History -->
+                    <!-- Withdrawal History -->
                     <div class="card p-6">
                         <h3 class="text-xl font-bold mb-4">Withdrawal History</h3>
                         <div id="historyList" class="space-y-3">
@@ -272,27 +458,136 @@
 
         <!-- Admin Section -->
         <div id="adminSection" class="hidden">
-            <div class="max-w-6xl mx-auto">
+            <div class="max-w-7xl mx-auto">
                 <!-- Login Form -->
-                <div id="adminLogin" class="card p-6 max-w-md mx-auto">
-                    <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+                <div id="adminLogin" class="card p-8 max-w-md mx-auto">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
                     <div class="space-y-4">
-                        <input type="email" id="adminEmail" class="w-full px-4 py-2 border rounded-lg" placeholder="Email" value="admin@ram.com">
-                        <input type="password" id="adminPassword" class="w-full px-4 py-2 border rounded-lg" placeholder="Password">
-                        <button onclick="adminLogin()" class="gradient-btn text-white w-full py-2 rounded-lg">
-                            Login
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="adminEmail" class="w-full px-4 py-3 border rounded-lg" value="admin@ram.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Password</label>
+                            <input type="password" id="adminPassword" class="w-full px-4 py-3 border rounded-lg">
+                        </div>
+                        <button onclick="adminLogin()" class="gradient-btn text-white w-full py-3 rounded-lg font-semibold">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Login
                         </button>
                     </div>
                 </div>
 
                 <!-- Admin Dashboard -->
                 <div id="adminDashboard" class="hidden">
-                    <div class="flex gap-4 mb-6">
-                        <button onclick="switchTab('users')" class="tab-btn px-4 py-2 font-semibold text-purple-600 border-b-2 border-purple-600">Users</button>
-                        <button onclick="switchTab('withdrawals')" class="tab-btn px-4 py-2 font-semibold text-gray-600">Withdrawals</button>
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+                        <div class="stat-card">
+                            <p class="text-3xl font-bold" id="totalUsers">0</p>
+                            <p class="text-sm opacity-90">Total Users</p>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)">
+                            <p class="text-3xl font-bold" id="pendingUsers">0</p>
+                            <p class="text-sm opacity-90">Pending</p>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%)">
+                            <p class="text-3xl font-bold" id="approvedUsers">0</p>
+                            <p class="text-sm opacity-90">Approved</p>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)">
+                            <p class="text-3xl font-bold" id="totalWithdrawals">0</p>
+                            <p class="text-sm opacity-90">Total Withdrawals</p>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)">
+                            <p class="text-3xl font-bold" id="pendingWithdrawals">0</p>
+                            <p class="text-sm opacity-90">Pending Withdrawals</p>
+                        </div>
                     </div>
-                    <div id="usersTab" class="space-y-4"></div>
-                    <div id="withdrawalsTab" class="hidden space-y-4"></div>
+
+                    <!-- Tabs -->
+                    <div class="flex gap-2 mb-6 border-b">
+                        <button onclick="switchTab('pending')" class="tab-btn active" id="pendingTabBtn">
+                            <i class="fas fa-clock mr-2"></i>Pending Users
+                        </button>
+                        <button onclick="switchTab('approved')" class="tab-btn" id="approvedTabBtn">
+                            <i class="fas fa-check-circle mr-2"></i>Approved Users
+                        </button>
+                        <button onclick="switchTab('withdrawals')" class="tab-btn" id="withdrawalsTabBtn">
+                            <i class="fas fa-money-bill-wave mr-2"></i>Withdrawals
+                        </button>
+                    </div>
+
+                    <!-- Pending Users Table -->
+                    <div id="pendingUsersTable" class="card p-6">
+                        <h3 class="text-xl font-bold mb-4">Pending Approval</h3>
+                        <div class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>User ID</th>
+                                        <th>Registered</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingUsersList">
+                                    <tr>
+                                        <td colspan="4" class="text-center py-8 text-gray-500">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Approved Users Table -->
+                    <div id="approvedUsersTable" class="hidden card p-6">
+                        <h3 class="text-xl font-bold mb-4">Approved Users</h3>
+                        <div class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>User ID</th>
+                                        <th>Views</th>
+                                        <th>Earnings</th>
+                                        <th>Monetag Link</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="approvedUsersList">
+                                    <tr>
+                                        <td colspan="7" class="text-center py-8 text-gray-500">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Withdrawals Table -->
+                    <div id="withdrawalsTable" class="hidden card p-6">
+                        <h3 class="text-xl font-bold mb-4">Withdrawal Requests</h3>
+                        <div class="overflow-x-auto">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Amount</th>
+                                        <th>Method</th>
+                                        <th>UPI ID</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Proof</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="withdrawalsList">
+                                    <tr>
+                                        <td colspan="8" class="text-center py-8 text-gray-500">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -357,8 +652,7 @@
                 if (!document.getElementById('adminSection').classList.contains('hidden')) {
                     document.getElementById('adminLogin').classList.add('hidden');
                     document.getElementById('adminDashboard').classList.remove('hidden');
-                    loadAdminUsers();
-                    loadAdminWithdrawals();
+                    loadAdminData();
                 }
             } else {
                 document.getElementById('adminBtn').classList.remove('hidden');
@@ -392,7 +686,46 @@
             return 'RET' + Math.random().toString(36).substring(2, 8).toUpperCase();
         }
         function maskName(name) {
-            return name ? name[0] + '***' + name.slice(-1) : '***';
+            if (!name) return '';
+            if (name.length <= 2) return name[0] + '*';
+            return name[0] + '*'.repeat(name.length - 2) + name[name.length - 1];
+        }
+        function formatDate(timestamp) {
+            if (!timestamp) return 'N/A';
+            try {
+                const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+                return date.toLocaleDateString('en-IN');
+            } catch {
+                return 'N/A';
+            }
+        }
+
+        // UPI Validation
+        function validateUPI() {
+            const upi = document.getElementById('upiId').value.trim();
+            const upiRegex = /^[a-zA-Z0-9.\-_]{2,}@[a-zA-Z]{2,}$/;
+            
+            if (!upi) {
+                showToast('Error', 'Enter UPI ID', 'error');
+                return false;
+            }
+            
+            if (!upiRegex.test(upi)) {
+                showToast('Error', 'Invalid UPI format', 'error');
+                return false;
+            }
+            
+            showToast('Success', 'Valid UPI ID', 'success');
+            return true;
+        }
+
+        function showQRScanner() {
+            Swal.fire({
+                title: 'Scan QR Code',
+                text: 'Please use your UPI app to scan QR code',
+                icon: 'info',
+                confirmButtonColor: '#8b5cf6'
+            });
         }
 
         // Navigation
@@ -403,8 +736,25 @@
             document.getElementById(section + 'Section').classList.remove('hidden');
             
             if (section === 'home') {
+                document.getElementById('userLogoutBtn').classList.add('hidden');
                 loadProofs();
+            } else if (section === 'dashboard') {
+                document.getElementById('userLogoutBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('userLogoutBtn').classList.add('hidden');
             }
+        }
+
+        // User Logout
+        function userLogout() {
+            currentUser = null;
+            currentUserId = null;
+            document.getElementById('userIdInput').classList.remove('hidden');
+            document.getElementById('dashboardContent').classList.add('hidden');
+            document.getElementById('userId').value = '';
+            document.getElementById('userLogoutBtn').classList.add('hidden');
+            showSection('home');
+            showToast('Success', 'Logged out from dashboard', 'success');
         }
 
         // Registration
@@ -422,7 +772,12 @@
         function copySuccessLink() {
             const link = document.getElementById('successLink').textContent;
             navigator.clipboard.writeText(link);
-            showToast('Copied!', 'Link copied', 'success');
+            showToast('Copied!', 'Link copied to clipboard', 'success');
+        }
+        function copyMonetagLink() {
+            const link = document.getElementById('monetagLink').href;
+            navigator.clipboard.writeText(link);
+            showToast('Copied!', 'Monetag link copied', 'success');
         }
 
         async function registerUser() {
@@ -489,7 +844,7 @@
                             <div class="p-4">
                                 <p class="font-semibold">${maskName(d.userName)}</p>
                                 <p class="text-green-600 font-bold">₹${d.amount}</p>
-                                <p class="text-sm text-gray-500">${new Date().toLocaleDateString()}</p>
+                                <p class="text-sm text-gray-500">${formatDate(d.date)}</p>
                             </div>
                         </div>
                     `;
@@ -537,6 +892,7 @@
                 const minAmt = data.isFirstWithdrawal ? 50 : 200;
                 document.getElementById('minAmount').textContent = `Min: ₹${minAmt}`;
 
+                // Show Monetag link only if approved
                 if (data.status === 'approved' && data.monetagLink) {
                     document.getElementById('monetagContainer').classList.remove('hidden');
                     document.getElementById('monetagLink').textContent = data.monetagLink;
@@ -559,6 +915,7 @@
 
                 document.getElementById('userIdInput').classList.add('hidden');
                 document.getElementById('dashboardContent').classList.remove('hidden');
+                document.getElementById('userLogoutBtn').classList.remove('hidden');
             } catch (err) {
                 showToast('Error', err.message, 'error');
             } finally {
@@ -578,7 +935,7 @@
             historyListener = window.firebaseFunctions.onSnapshot(q, (snap) => {
                 const list = document.getElementById('historyList');
                 if (snap.empty) {
-                    list.innerHTML = '<p class="text-center text-gray-500">No history</p>';
+                    list.innerHTML = '<p class="text-center text-gray-500">No history yet</p>';
                     return;
                 }
 
@@ -589,11 +946,15 @@
                         <div class="bg-gray-50 p-3 rounded flex justify-between items-center">
                             <div>
                                 <p class="font-semibold">₹${d.amount}</p>
-                                <p class="text-xs text-gray-500">${d.method} • ${d.upiId}</p>
+                                <p class="text-xs text-gray-500">${d.method} • ${d.upiId} • ${formatDate(d.date)}</p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="status-badge status-${d.status}">${d.status}</span>
-                                ${d.paymentProofImage ? `<i class="fas fa-image text-blue-500 cursor-pointer" onclick="window.open('${d.paymentProofImage}')"></i>` : ''}
+                                ${d.paymentProofImage ? `
+                                    <button onclick="window.open('${d.paymentProofImage}')" class="text-blue-600 hover:text-blue-700">
+                                        <i class="fas fa-image"></i>
+                                    </button>
+                                ` : ''}
                             </div>
                         </div>
                     `;
@@ -604,10 +965,17 @@
 
         function setMethod(method) {
             currentMethod = method;
-            ['Gpay', 'Phonepe', 'Upi'].forEach(m => {
-                document.getElementById(`method${m}`)?.classList.remove('border-purple-500', 'bg-purple-50');
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-            document.getElementById(`method${method.charAt(0).toUpperCase() + method.slice(1)}`).classList.add('border-purple-500', 'bg-purple-50');
+            document.getElementById(`method${method.charAt(0).toUpperCase() + method.slice(1)}`).classList.add('active');
+            
+            // Show QR option for Google Pay and PhonePe
+            if (method === 'gpay' || method === 'phonepe') {
+                document.getElementById('qrOption').classList.remove('hidden');
+            } else {
+                document.getElementById('qrOption').classList.add('hidden');
+            }
         }
 
         async function submitWithdrawal() {
@@ -630,6 +998,13 @@
                 return;
             }
 
+            // Validate UPI format
+            const upiRegex = /^[a-zA-Z0-9.\-_]{2,}@[a-zA-Z]{2,}$/;
+            if (!upiRegex.test(upi)) {
+                showToast('Error', 'Invalid UPI format', 'error');
+                return;
+            }
+
             showLoading();
             try {
                 await window.firebaseFunctions.addDoc(
@@ -648,7 +1023,7 @@
 
                 document.getElementById('withdrawAmount').value = '';
                 document.getElementById('upiId').value = '';
-                showToast('Success', 'Request submitted', 'success');
+                showToast('Success', 'Withdrawal request submitted!', 'success');
             } catch (err) {
                 showToast('Error', err.message, 'error');
             } finally {
@@ -685,18 +1060,27 @@
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('text-purple-600', 'border-b-2', 'border-purple-600');
-                btn.classList.add('text-gray-600');
-            });
-            event.target.classList.remove('text-gray-600');
-            event.target.classList.add('text-purple-600', 'border-b-2', 'border-purple-600');
-
-            document.getElementById('usersTab').classList.toggle('hidden', tab !== 'users');
-            document.getElementById('withdrawalsTab').classList.toggle('hidden', tab !== 'withdrawals');
+            document.getElementById('pendingUsersTable').classList.add('hidden');
+            document.getElementById('approvedUsersTable').classList.add('hidden');
+            document.getElementById('withdrawalsTable').classList.add('hidden');
+            
+            document.getElementById('pendingTabBtn').classList.remove('active');
+            document.getElementById('approvedTabBtn').classList.remove('active');
+            document.getElementById('withdrawalsTabBtn').classList.remove('active');
+            
+            if (tab === 'pending') {
+                document.getElementById('pendingUsersTable').classList.remove('hidden');
+                document.getElementById('pendingTabBtn').classList.add('active');
+            } else if (tab === 'approved') {
+                document.getElementById('approvedUsersTable').classList.remove('hidden');
+                document.getElementById('approvedTabBtn').classList.add('active');
+            } else {
+                document.getElementById('withdrawalsTable').classList.remove('hidden');
+                document.getElementById('withdrawalsTabBtn').classList.add('active');
+            }
         }
 
-        function loadAdminUsers() {
+        function loadAdminData() {
             const q = window.firebaseFunctions.query(
                 window.firebaseFunctions.collection(db, 'users'),
                 window.firebaseFunctions.orderBy('createdAt', 'desc')
@@ -704,66 +1088,129 @@
 
             if (usersListener) usersListener();
             usersListener = window.firebaseFunctions.onSnapshot(q, (snap) => {
-                let html = '';
+                let pendingHtml = '';
+                let approvedHtml = '';
+                let total = 0;
+                let pending = 0;
+                let approved = 0;
+                
                 snap.forEach(doc => {
                     const u = doc.data();
-                    html += `
-                        <div class="card p-4">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="font-semibold">${u.name}</h3>
-                                    <p class="text-sm">ID: ${u.userId}</p>
-                                    <p class="text-sm">Views: ${u.totalViews || 0} | Earnings: ₹${u.totalEarnings || 0}</p>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="status-badge status-${u.status}">${u.status}</span>
-                                    ${u.status === 'pending' ? `
-                                        <button onclick="updateUserStatus('${u.userId}', 'approved')" class="text-green-600"><i class="fas fa-check"></i></button>
-                                        <button onclick="updateUserStatus('${u.userId}', 'rejected')" class="text-red-600"><i class="fas fa-times"></i></button>
-                                    ` : ''}
-                                    <button onclick="editUser('${u.userId}', '${u.monetagLink || ''}', ${u.totalViews || 0}, ${u.totalEarnings || 0})" class="text-purple-600"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    total++;
+                    
+                    if (u.status === 'pending') {
+                        pending++;
+                        pendingHtml += `
+                            <tr>
+                                <td class="font-medium">${u.name}</td>
+                                <td><span class="font-mono text-sm">${u.userId}</span></td>
+                                <td>${formatDate(u.createdAt)}</td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <button onclick="updateUserStatus('${u.userId}', 'approved')" class="action-btn approve">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <button onclick="updateUserStatus('${u.userId}', 'rejected')" class="action-btn reject">
+                                            <i class="fas fa-times"></i> Reject
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    } else if (u.status === 'approved') {
+                        approved++;
+                        approvedHtml += `
+                            <tr>
+                                <td class="font-medium">${u.name}</td>
+                                <td><span class="font-mono text-sm">${u.userId}</span></td>
+                                <td>${u.totalViews || 0}</td>
+                                <td>₹${u.totalEarnings || 0}</td>
+                                <td>
+                                    ${u.monetagLink ? `
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-sm text-blue-600 truncate max-w-[150px]">${u.monetagLink}</span>
+                                            <button onclick="copyText('${u.monetagLink}')" class="copy-btn">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    ` : '<span class="text-gray-400">Not set</span>'}
+                                </td>
+                                <td><span class="status-badge status-approved">Approved</span></td>
+                                <td>
+                                    <button onclick="editUser('${u.userId}', '${u.monetagLink || ''}', ${u.totalViews || 0}, ${u.totalEarnings || 0})" class="action-btn edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }
                 });
-                document.getElementById('usersTab').innerHTML = html || '<p class="text-center">No users</p>';
-            });
-        }
 
-        function loadAdminWithdrawals() {
-            const q = window.firebaseFunctions.query(
+                document.getElementById('pendingUsersList').innerHTML = pendingHtml || '<tr><td colspan="4" class="text-center py-8">No pending users</td></tr>';
+                document.getElementById('approvedUsersList').innerHTML = approvedHtml || '<tr><td colspan="7" class="text-center py-8">No approved users</td></tr>';
+                
+                document.getElementById('totalUsers').textContent = total;
+                document.getElementById('pendingUsers').textContent = pending;
+                document.getElementById('approvedUsers').textContent = approved;
+            });
+
+            // Load withdrawals
+            const wq = window.firebaseFunctions.query(
                 window.firebaseFunctions.collection(db, 'withdrawals'),
                 window.firebaseFunctions.orderBy('date', 'desc')
             );
 
             if (withdrawalsListener) withdrawalsListener();
-            withdrawalsListener = window.firebaseFunctions.onSnapshot(q, (snap) => {
+            withdrawalsListener = window.firebaseFunctions.onSnapshot(wq, (snap) => {
                 let html = '';
+                let total = 0;
+                let pending = 0;
+                
                 snap.forEach(doc => {
                     const w = doc.data();
+                    total++;
+                    if (w.status === 'pending') pending++;
+                    
                     html += `
-                        <div class="card p-4">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="font-semibold">${w.userName}</p>
-                                    <p>Amount: ₹${w.amount} | ${w.method}</p>
-                                    <p class="text-sm">UPI: ${w.upiId}</p>
-                                </div>
+                        <tr>
+                            <td class="font-medium">${w.userName}</td>
+                            <td class="font-bold">₹${w.amount}</td>
+                            <td>${w.method}</td>
+                            <td><span class="font-mono text-sm">${w.upiId}</span></td>
+                            <td>${formatDate(w.date)}</td>
+                            <td><span class="status-badge status-${w.status}">${w.status}</span></td>
+                            <td>
+                                ${w.paymentProofImage ? `
+                                    <button onclick="window.open('${w.paymentProofImage}')" class="action-btn view">
+                                        <i class="fas fa-image"></i> View
+                                    </button>
+                                ` : '<span class="text-gray-400">No proof</span>'}
+                            </td>
+                            <td>
                                 <div class="flex gap-2">
-                                    <span class="status-badge status-${w.status}">${w.status}</span>
                                     ${w.status === 'pending' ? `
-                                        <button onclick="approveWithdrawal('${doc.id}', '${w.userId}')" class="text-green-600"><i class="fas fa-check"></i></button>
-                                        <button onclick="rejectWithdrawal('${doc.id}')" class="text-red-600"><i class="fas fa-times"></i></button>
+                                        <button onclick="approveWithdrawal('${doc.id}', '${w.userId}')" class="action-btn approve">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button onclick="rejectWithdrawal('${doc.id}')" class="action-btn reject">
+                                            <i class="fas fa-times"></i>
+                                        </button>
                                     ` : ''}
-                                    ${w.paymentProofImage ? `<i class="fas fa-image text-blue-500 cursor-pointer" onclick="window.open('${w.paymentProofImage}')"></i>` : ''}
                                 </div>
-                            </div>
-                        </div>
+                            </td>
+                        </tr>
                     `;
                 });
-                document.getElementById('withdrawalsTab').innerHTML = html || '<p class="text-center">No withdrawals</p>';
+
+                document.getElementById('withdrawalsList').innerHTML = html || '<tr><td colspan="8" class="text-center py-8">No withdrawals found</td></tr>';
+                document.getElementById('totalWithdrawals').textContent = total;
+                document.getElementById('pendingWithdrawals').textContent = pending;
             });
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+            showToast('Copied!', 'Text copied to clipboard', 'success');
         }
 
         async function updateUserStatus(uid, status) {
@@ -775,12 +1222,15 @@
             Swal.fire({
                 title: 'Edit User',
                 html: `
-                    <input id="monetag" class="w-full p-2 border rounded mb-2" value="${link}" placeholder="Monetag Link">
-                    <input id="views" type="number" class="w-full p-2 border rounded mb-2" value="${views}" placeholder="Views">
-                    <input id="earnings" type="number" class="w-full p-2 border rounded" value="${earnings}" placeholder="Earnings">
+                    <div class="space-y-3">
+                        <input id="monetag" class="w-full p-2 border rounded" value="${link}" placeholder="Monetag Link">
+                        <input id="views" type="number" class="w-full p-2 border rounded" value="${views}" placeholder="Total Views">
+                        <input id="earnings" type="number" class="w-full p-2 border rounded" value="${earnings}" placeholder="Total Earnings">
+                    </div>
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Update',
+                confirmButtonColor: '#8b5cf6',
                 preConfirm: () => ({
                     monetagLink: document.getElementById('monetag').value,
                     totalViews: parseInt(document.getElementById('views').value) || 0,
@@ -796,15 +1246,16 @@
 
         async function approveWithdrawal(wid, uid) {
             const { value: file } = await Swal.fire({
-                title: 'Upload Proof',
+                title: 'Upload Payment Proof',
                 input: 'file',
-                inputAttributes: { accept: 'image/*' }
+                inputAttributes: { accept: 'image/*' },
+                confirmButtonColor: '#8b5cf6'
             });
 
             if (file) {
                 showLoading();
                 try {
-                    const storageRef = window.firebaseFunctions.ref(storage, `proofs/${wid}`);
+                    const storageRef = window.firebaseFunctions.ref(storage, `proofs/${wid}_${Date.now()}`);
                     await window.firebaseFunctions.uploadBytes(storageRef, file);
                     const url = await window.firebaseFunctions.getDownloadURL(storageRef);
 
@@ -820,7 +1271,7 @@
                         });
                     }
 
-                    showToast('Success', 'Approved', 'success');
+                    showToast('Success', 'Withdrawal approved', 'success');
                 } catch (err) {
                     showToast('Error', err.message, 'error');
                 } finally {
@@ -831,7 +1282,7 @@
 
         async function rejectWithdrawal(wid) {
             await window.firebaseFunctions.updateDoc(window.firebaseFunctions.doc(db, 'withdrawals', wid), { status: 'rejected' });
-            showToast('Success', 'Rejected', 'success');
+            showToast('Success', 'Withdrawal rejected', 'success');
         }
 
         // Expose functions
@@ -841,17 +1292,22 @@
         window.registerUser = registerUser;
         window.goHome = goHome;
         window.copySuccessLink = copySuccessLink;
+        window.copyMonetagLink = copyMonetagLink;
         window.loadDashboard = loadDashboard;
         window.setMethod = setMethod;
         window.submitWithdrawal = submitWithdrawal;
         window.copyDashLink = copyDashLink;
+        window.validateUPI = validateUPI;
+        window.showQRScanner = showQRScanner;
         window.adminLogin = adminLogin;
         window.logout = logout;
+        window.userLogout = userLogout;
         window.switchTab = switchTab;
         window.updateUserStatus = updateUserStatus;
         window.editUser = editUser;
         window.approveWithdrawal = approveWithdrawal;
         window.rejectWithdrawal = rejectWithdrawal;
+        window.copyText = copyText;
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -859,7 +1315,10 @@
             const ref = new URLSearchParams(location.search).get('ref');
             if (ref) {
                 document.getElementById('userId').value = ref;
-                setTimeout(loadDashboard, 500);
+                setTimeout(() => {
+                    showSection('dashboard');
+                    loadDashboard();
+                }, 500);
             }
         });
     </script>
